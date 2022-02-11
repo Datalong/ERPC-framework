@@ -1,3 +1,6 @@
+/aur/license/:packageName
+https://img.shields.io/badge/%E5%85%AC%E4%BC%97%E5%8F%B7%EF%BC%9A-%E9%BE%99%E5%93%A5%E6%89%8B%E8%AE%B0-brightgreen
+
 中文|English
 
 本着开源精神，本项目README已经同步了英文版本。另外，项目的源代码的注释大部分也修改为了英文。
