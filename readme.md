@@ -41,6 +41,7 @@ test-server —— 测试用提供侧
 传输协议（MRF协议）
 调用参数与返回值的传输采用了如下 ERF 协议（ ERPC-Framework 首字母）以防止粘包：
 
+```
 +---------------+---------------+-----------------+-------------+
 |  Magic Number |  Package Type | Serializer Type | Data Length |
 |    4 bytes    |    4 bytes    |     4 bytes     |   4 bytes   |
@@ -48,6 +49,7 @@ test-server —— 测试用提供侧
 |                          Data Bytes                           |
 |                   Length: ${Data Length}                      |
 +---------------------------------------------------------------+
+```
 
 ### 字段	解释
 Magic Number	魔数，表识一个 ERF 协议包，0xCAFEBABE
