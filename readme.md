@@ -1,6 +1,3 @@
-/aur/license/:packageName
-
-https://img.shields.io/badge/%E5%85%AC%E4%BC%97%E5%8F%B7%EF%BC%9A-%E9%BE%99%E5%93%A5%E6%89%8B%E8%AE%B0-brightgreen
 
 中文|English
 
