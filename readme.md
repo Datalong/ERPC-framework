@@ -1,14 +1,28 @@
 
 中文|English
 
+# 🏆 从零开始设计一个轻量级分布式 RPC 框架
+
+---
+
+## 📰 写在前面
+
+本项目基于 Spring + Netty + Nacos + kyro 从零开始设计实现一款轻量级的分布式 RPC 框架，内含详细设计思路以及开发教程，**通过造轮子的方式来学习**，这样能深入理解 RPC 框架的底层原理。相比简历上一律的 xxxx 系统，造轮子很显然更能赢得面试官的青睐 💖
+
+当然，大家在实际项目中少造轮子，尽量去用现成的优秀框架省事很多
+
 本着开源精神，本项目README已经同步了英文版本。另外，项目的源代码的注释大部分也修改为了英文。
 
-如访问速度不佳，可放在 Gitee 地址：https://gitee.com/Datalong/erpc-framework 。如果要提交 issue 或者 pr 的话，请在 Github 提交：https://github.com/Datalong/erpc-framework 。
+如访问速度不佳，可放在 Gitee 地址：https://gitee.com/Datalong/erpc-framework 。如果要提交 issue 或者 pr 的话，请在 Github 提交：https://github.com/Datalong/erpc-framework/issues 。
 
-相关项目：
+👍项目推荐：
 
-1.LeetCode_Offer(图解高频算法题 正在更新中...)
-2.「PassCS」基于SpringCloud的自学考试系统，全面帮你梳理计算机科学的基础知识。
+1.[LeetCode_Offer](https://gitee.com/Datalong/leet-code--offer)(图解高频算法题 正在更新中...)
+
+2.[]
+
+3.「PassCS」基于SpringCloud的自学考试系统，全面帮你梳理计算机科学的基础知识。
+
 
 ## 前言
 虽说 RPC 的原理实际不难，但是，自己在实现的过程中自己也遇到了很多问题。erpc-framework 目前只实现了 RPC 框架最基本的功能，一些可优化点都在下面提到了，有兴趣的小伙伴可以自行完善。
