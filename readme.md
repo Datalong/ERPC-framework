@@ -14,11 +14,11 @@
 
 项目推荐👍：
 
-1.[LeetCode_Offer](https://gitee.com/Datalong/leet-code--offer)(图解高频算法题 正在更新中...)
+1.[LeetCode_Offer](https://gitee.com/Datalong/leet-code--offer)：(图解高频算法题 正在更新中...)
 
-2.[CodeGuide](https://github.com/Datalong/CodeGuide)知识管理与资源站点，欢迎大家来访问交流评论。
+2.[CodeGuide](https://github.com/Datalong/CodeGuide)：知识管理与资源站点，欢迎大家来访问交流评论。
 
-3.[BuildSkill](https://gitee.com/Datalong/build-skill)从零开始设计一款高性能分布式的秒杀系统并附详细教程，欢迎大家star!
+3.[BuildSkill](https://gitee.com/Datalong/build-skill)：从零开始设计一款高性能分布式的秒杀系统并附详细教程，欢迎大家star!
 
 
 ## 👝 前言
