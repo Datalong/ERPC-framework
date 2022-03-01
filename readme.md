@@ -1,5 +1,5 @@
 
-中文|[English](https://github.com/Datalong/ERPC-framework/edit/master/readmeEN.md)
+中文|[English](https://github.com/Datalong/ERPC-framework/blob/master/readmeEN.md)
 
 ## 🏆 从零开始设计一个轻量级分布式 RPC 框架
 ### 📰 写在前面
