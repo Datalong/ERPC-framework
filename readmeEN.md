@@ -285,13 +285,12 @@ docker run -d -e prefer_host_mode=127.0.0.1 -e MODE=standalone -v /nacos/logs:/o
 ` ` ` `
 ####Check the startup status and log of Nacos:
 To view the containers that docker has started:
-
 `#Docker PS ` # to view all containers, add the parameter ` - A`
 
 ![]https://gitee.com/Datalong/picture/raw/master/2022-2-11/1644576751371-6.png)
 
-
 To view the output log of the container specified by docker:
+
 ```sh
 
 #Docker logs -- since 10m, Nacos # 10m is the time parameter, and Nacos is the container name or ID
@@ -313,13 +312,15 @@ Open firewall port 8848 and restart the firewall to take effect
 # firewall-cmd --zone=public --add-port=8848/tcp --permanent
 
 ` ` ` `
+
 service iptables restart 
 ```sh
 
 # systemctl restart firewalld
 
 ` ` ` `
-###3. Access the Nacos management interface:
+
+### 3. Access the Nacos management interface:
 http://xxx.xxx.xx.xxx:8848/nacos/#/login
 
 User name / password: Nacos / Nacos
