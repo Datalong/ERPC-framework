@@ -2,10 +2,10 @@
 
 [Chinese](https://github.com/Datalong/ERPC-framework/new/master/readme.md) | English
 
-To talk about🏆 Design a lightweight distributed RPC framework from scratch
+## To talk about🏆 Design a lightweight distributed RPC framework from scratch
 ### 📰 Write in front
 
-Based on Spring + netty + Nacos + kyro, this project designs and implements a lightweight distributed RPC framework from scratch, including detailed design ideas and development tutorials, * * learn by building wheels * *, so as to deeply understand the underlying principle of RPC framework.Compared with the same XXXX system on the resume, making wheels can obviously win the favor of interviewers💖
+Based on Spring + netty + Nacos + kyro, this project designs and implements a lightweight distributed RPC framework from scratch, including detailed design ideas and development tutorials,  learn by building wheels, so as to deeply understand the underlying principle of RPC framework.Compared with the same XXXX system on the resume, making wheels can obviously win the favor of interviewers💖
 
 Of course, we should make fewer wheels in the actual project and try to use the ready-made excellent framework to save a lot of trouble
 
@@ -31,7 +31,7 @@ You can even use ERPC framework as your choice of design / project experience, w
 
 If you want to take ERPC framework as your design / project experience, I hope you must stick to it and understand the code instead of directly copying and pasting my ideas.Then you can fork my project and optimize it.If you think the optimization is valuable, you can submit PR to me and I will deal with it as soon as possible.
 
-##What features are implemented
+## What features are implemented
 -Two network transmission modes based on Java Native socket transmission and netty transmission are realized
 -Four serialization algorithms are implemented, including Jason method, kryo algorithm, Hessian algorithm and Google protobuf method (kryo method serialization is adopted by default here)
 -Two load balancing algorithms are implemented: random algorithm and rotation algorithm
@@ -42,7 +42,7 @@ If you want to take ERPC framework as your design / project experience, I hope y
 -Implement custom communication protocol
 -Service provider side automatic registration service
 
-##Project module overview
+## Project module overview
 ` ` ` `
 
 ROC API -- General Interface
@@ -52,10 +52,10 @@ Test client -- consumer side for test
 Test server - Test side
 
 ` ` ` `
-###2 transmission protocol (MRF protocol)
+### 2 transmission protocol (MRF protocol)
 The transfer of call parameters and return values adopts the following ERF protocol (ERPC framework initials) to prevent packet sticking:
 
-` ` ` `
+```
 +---------------+---------------+-----------------+-------------+
 |  Magic Number |  Package Type | Serializer Type | Data Length |
 |    4 bytes    |    4 bytes    |     4 bytes     |   4 bytes   |
@@ -63,9 +63,9 @@ The transfer of call parameters and return values adopts the following ERF proto
 |                          Data Bytes                           |
 |                   Length: ${Data Length}                      |
 +---------------------------------------------------------------+
-` ` ` `
+```
 
-###3 field interpretation
+### 3 field interpretation
 Magic number indicates an ERF protocol package, 0xcafebabe
 
 Package type = package type, indicating whether this is a call request or a call response
@@ -76,9 +76,9 @@ Data length length of data bytes
 
 The object transmitted by data bytes is usually an rpcrequest or rpcclient object, which depends on the package type field, and the serialization method of the object depends on the serializer type field.
 
-To talk about🎨 What do you need
+## To talk about🎨 What do you need
 
-###1. A basic RPC framework design idea
+### 1. A basic RPC framework design idea
 
 >Note: the RPC framework we mentioned here refers to a framework that allows the client to call the server method directly, just like calling the local method, such as Dubbo, Motan and grpc.If you need to deal with HTTP protocol, parse and encapsulate HTTP request and response.Such frameworks are not "RPC frameworks", such as feign.
 
@@ -94,7 +94,7 @@ As a leader in the field of RPC framework, Dubbo's architecture is shown in the 
 
 Generally, RPC framework should not only provide service discovery function, but also provide load balancing, fault tolerance and other functions. Only such RPC framework can be truly qualified.
 
-###2 here is a brief description of what you need
+### 2 here is a brief description of what you need
 
 ![]https://gitee.com/Datalong/picture/raw/master/2022-2-11/1644574603800-rpc-architure-detail.png)
 
@@ -135,12 +135,12 @@ Simply put: by designing the transmission protocol, we define which types of dat
 
 Generally, some standard RPC protocols include the following contents:
 
--Magic Number: usually 4 bytes.This magic number is mainly used to filter the data packets coming to the server. After having this magic number, the server first takes out the first four bytes for comparison, which can identify that the data packet does not follow the user-defined protocol, that is, invalid data packets. For security reasons, you can directly close the connection to save resources.
+- Magic Number: usually 4 bytes.This magic number is mainly used to filter the data packets coming to the server. After having this magic number, the server first takes out the first four bytes for comparison, which can identify that the data packet does not follow the user-defined protocol, that is, invalid data packets. For security reasons, you can directly close the connection to save resources.
 -Serializer number: identifies the serialization method, for example, whether to use the serialization provided by Java or JSON, kyro and other serialization methods.
 -Message body length: calculated at runtime.
 - ..........
 
-To talk about🎂 Technical foreshadowing required
+## To talk about🎂 Technical foreshadowing required
 
 This project is based on netty + kyro + Spring + Nacos. To learn this project, you need the following technical reserves:
 
@@ -168,33 +168,33 @@ See [Turing Nacos tutorial] for relevant tutorials（https://www.bilibili.com/vi
 See [Raytheon springboot2] for related tutorials（https://www.bilibili.com/video/BV19K4y1L7MT?from=search&seid=17207560233934484749&spm_id_from=333.337.0.0)
 
 
-To talk about🎁 Project address | embrace open source
+### To talk about🎁 Project address | embrace open source
 
 I have to say that open source has really greatly improved our productivity and learning efficiency (at least for me)
 
 Project source code address:
 
--Recommended visit gitee: [ERPC framework]（https://gitee.com/Datalong/erpc-framework)
--Next, visit GitHub: [ERPC framework]（https://github.com/Datalong/ERPC-framework)
+- Recommended visit gitee: [ERPC framework]（https://gitee.com/Datalong/erpc-framework)
+- Next, visit GitHub: [ERPC framework]（https://github.com/Datalong/ERPC-framework)
 
-##🤔 basic information and optimization points of the project
+## 🤔 basic information and optimization points of the project
 In order to step by step, at first, I used socket for network transmission based on the traditional bio method, and then used the serialization mechanism of JDK to implement this RPC framework.Later, I optimized the original version. I listed the completed optimization points and the optimization points that can be completed below👇。
 
 Why list the optimization points?I mainly want to give some ideas to those small partners who want to optimize this RPC framework.Welcome to fork this warehouse and optimize it yourself.
 
--Use netty (NiO based) instead of bio to realize network transmission;
+- Use netty (NiO based) instead of bio to realize network transmission;
  
--Use the open source serialization mechanism kyro (or others) to replace the serialization mechanism of JDK;
+- Use the open source serialization mechanism kyro (or others) to replace the serialization mechanism of JDK;
 
--Use Nacos to manage relevant service address information
+- Use Nacos to manage relevant service address information
  
--Netty reuses the channel to avoid repeated connection to the server
+- Netty reuses the channel to avoid repeated connection to the server
 
--Use 'completabilefuture' to wrap and accept the results returned by the client (the previous implementation was implemented by binding 'attributemap' to the channel). See details: use completabilefuture to optimize the results returned by the receiving service provider
+- Use 'completabilefuture' to wrap and accept the results returned by the client (the previous implementation was implemented by binding 'attributemap' to the channel). See details: use completabilefuture to optimize the results returned by the receiving service provider
 
--Add netty heartbeat mechanism: ensure that the connection between the client and the server is not broken and avoid reconnection.
+- Add netty heartbeat mechanism: ensure that the connection between the client and the server is not broken and avoid reconnection.
 
--Load balancing when the client calls the remote service: when calling the service, select a service address from many service addresses according to the corresponding load balancing algorithm.PS: at present, random load balancing algorithm and consistent hash algorithm are implemented.
+- Load balancing when the client calls the remote service: when calling the service, select a service address from many service addresses according to the corresponding load balancing algorithm.PS: at present, random load balancing algorithm and consistent hash algorithm are implemented.
 
 - deal with the situation that an interface has multiple class implementations: group services and add a group parameter when publishing services.
  
@@ -204,24 +204,24 @@ Why list the optimization points?I mainly want to give some ideas to those small
  
 - increase the service version number: it is recommended to use a two digit version, such as 1.0. Generally, the version number needs to be upgraded only when the interface is incompatible.Why increase the service version number?Make it possible for subsequent incompatible upgrades. For example, adding methods to the service interface or adding fields to the service model can be backward compatible. Deleting methods or fields will be incompatible, and the new fields of enumeration types will also be incompatible. It needs to be upgraded by changing the version number.
  
--Application of SPI mechanism
+- Application of SPI mechanism
  
--Add configurable methods, such as serialization and registry implementation, to avoid hard coding: configure through API. If spring is integrated later, it is recommended to use configuration file for configuration
+- Add configurable methods, such as serialization and registry implementation, to avoid hard coding: configure through API. If spring is integrated later, it is recommended to use configuration file for configuration
  
--The communication protocol (packet structure) between the client and the server is redesigned. The original rpcrequest and rpcreuqest objects can be used as the message body, and then the following fields are added (refer to the design of this part in the introduction to netty and Dubbo framework):
--Magic Number: usually 4 bytes.This magic number is mainly used to filter the data packets coming to the server. After having this magic number, the server first takes out the first four bytes for comparison, which can identify that the data packet does not follow the user-defined protocol, that is, invalid data packets. For security reasons, you can directly close the connection to save resources.
--Serializer number: identifies the serialization method, for example, whether to use the serialization provided by Java or JSON, kyro and other serialization methods.
--Message body length: calculated at runtime.
+- The communication protocol (packet structure) between the client and the server is redesigned. The original rpcrequest and rpcreuqest objects can be used as the message body, and then the following fields are added (refer to the design of this part in the introduction to netty and Dubbo framework):
+- Magic Number: usually 4 bytes.This magic number is mainly used to filter the data packets coming to the server. After having this magic number, the server first takes out the first four bytes for comparison, which can identify that the data packet does not follow the user-defined protocol, that is, invalid data packets. For security reasons, you can directly close the connection to save resources.
+- Serializer number: identifies the serialization method, for example, whether to use the serialization provided by Java or JSON, kyro and other serialization methods.
+- Message body length: calculated at runtime.
 
--Writing tests provides confidence in refactoring code
+- Writing tests provides confidence in refactoring code
  
--Service monitoring center (similar to Dubbo admin)
+- Service monitoring center (similar to Dubbo admin)
  
--Set gzip compression
+- Set gzip compression
 
 
-##🛠 formal operation project
-###1 import project
+## 🛠 formal operation project
+### 1 import project
 Fork the project to your own warehouse, and then clone the project to your local: ` git clonegit@github.com:username/erpc-framework. Git `, open it with idea and wait for the project initialization to complete.
 ###Initialize git hooks
 This step is mainly to run check style before committing the code to ensure that there is no problem with the code format. If there is a problem, it cannot be submitted.
@@ -234,10 +234,11 @@ Execute these commands:
 ➜  erpc-framework git:(master) ✗ chmod +x ./init.Sh
 ➜  erpc-framework git:(master) ✗ ./init.Sh
 
-` ` ` `
+```
+
 `init.SH ` the main function of this script is to copy the GIT commit hook to the projectGit / hooks / ` directory, so that you will execute it every time you commit.
 ###Checkstyle plug-in download and configuration
-`IntelliJ idea - > Preferences - > plugins - > search and download checkstyle plug-in `, and then configure it as follows.
+`IntelliJ idea - > Preferences - > plugins - > search and download checkstyle plug-in , and then configure it as follows.
 
 ![]https://gitee.com/Datalong/picture/raw/master/2022-2-11/1644575555001-4.png)
 
@@ -245,44 +246,45 @@ After configuration, use the plug-in as follows!
 
 ![]https://gitee.com/Datalong/picture/raw/master/2022-2-11/1644575597601-5.png)
 
-###2 download and run Nacos
+### 2 download and run Nacos
 Docker is used here to download and install.
 ####Search for images of Nacos
+
 ```sh
 
 # docker search nacos
 
-` ` ` `
-####The stable version is recommended (official recommendation 1.3.1). If the version is not specified, it is the latest version (corresponding to Nacos version 1.4)
+```
+#### The stable version is recommended (official recommendation 1.3.1). If the version is not specified, it is the latest version (corresponding to Nacos version 1.4)
 ```sh
 
 # docker pull nacos/nacos-server
 
-` ` ` `
-####View all downloaded image packages in docker:
+```
+#### View all downloaded image packages in docker:
 ```sh
 
 # docker images
 
-` ` ` `
+```
 
 ![]https://gitee.com/Datalong/picture/raw/master/2022-2-11/1644576669508-Si.png)
 
-####Start command:
-` ` ` `
+#### Start command:
+```sh
 
 docker run -d -e prefer_host_mode=127.0.0.1 -e MODE=standalone -v /nacos/logs:/opt/software/nacos/logs -p 8848:8848 --name nacos --restart=always nacos/nacos-server
 
-` ` ` `
--Detailed explanation of parameters:
-` ` ` `
--D background operation
--E environment variable setting
--V directory of a container: map a directory on CentOS (according to the actual settings)
--P external access port: internal mapped port (according to actual settings)
--Name the name of the container
+```
+- Detailed explanation of parameters:
+
+- D background operation
+- E environment variable setting
+- V directory of a container: map a directory on CentOS (according to the actual settings)
+- P external access port: internal mapped port (according to actual settings)
+- Name the name of the container
 -Restart restart policy
-` ` ` `
+
 ####Check the startup status and log of Nacos:
 To view the containers that docker has started:
 `#Docker PS ` # to view all containers, add the parameter ` - A`
@@ -295,13 +297,13 @@ To view the output log of the container specified by docker:
 
 #Docker logs -- since 10m, Nacos # 10m is the time parameter, and Nacos is the container name or ID
 
-` ` ` `
+```
 Open Nacos 8848 port external connection:
 
 Firewall open '8848' port:
 
 Check whether a port of the firewall is open
-`# firewall-cmd --query-port=8848/tcp`
+` firewall-cmd --query-port=8848/tcp`
 
 ![]https://gitee.com/Datalong/picture/raw/master/2022-2-11/1644576889050-7.png)
 
@@ -311,14 +313,14 @@ Open firewall port 8848 and restart the firewall to take effect
 
 # firewall-cmd --zone=public --add-port=8848/tcp --permanent
 
-` ` ` `
+```
 
 service iptables restart 
 ```sh
 
 # systemctl restart firewalld
 
-` ` ` `
+```
 
 ### 3. Access the Nacos management interface:
 http://xxx.xxx.xx.xxx:8848/nacos/#/login
@@ -375,7 +377,7 @@ public class HelloServiceImpl2 implements HelloService {
     }
 }
 
-` ` ` `
+```
 Publishing service (transport using netty):
 ```java
 
@@ -400,8 +402,8 @@ public class NettyServerMain {
     }
 }
 
-` ` ` `
-###2. Service consumer
+``` 
+### 2. Service consumer
 ```java
 
 @Component
@@ -421,7 +423,7 @@ public class HelloController {
     }
 }
 
-` ` ` `
+``` 
 ```java
 ClientTransport rpcRequestTransport = new SocketRpcClient();
 RpcServiceProperties rpcServiceConfig = RpcServiceProperties.builder()
@@ -430,9 +432,9 @@ RpcClientProxy rpcClientProxy = new RpcClientProxy(rpcRequestTransport, rpcServi
 HelloService helloService = rpcClientProxy.getProxy(HelloService.class);
 String hello = helloService.hello(new Hello("111", "222"));
 System.out.println(hello);
-` ` ` `
+```
 To talk about📢 Related issues
-#####Why build this wheel?Doesn't Dubbo smell good?
+##### Why build this wheel?Doesn't Dubbo smell good?
 
 I wrote this RPC framework mainly to study deeply by making wheels and test my application of the knowledge I have mastered.
 
@@ -442,20 +444,20 @@ I have previously shared how to implement an RPC from a theoretical level.Howeve
 
 In practical projects, we should try to build fewer wheels and use them as soon as possible after there is an excellent framework. Dubbo has done a good and perfect job in all aspects.
 
-To talk about🙋 Wechat communication group
+## To talk about🙋 Wechat communication group
 
 Underneath scan code, I will pay attention to the official account reply to `ERPC`. There is my contact information. Note "ERPC" plus my WeChat. I pull you into WeChat WeChat communication group, follow up the project schedule in real time, get the tutorial updates, share your thoughts, and help you solve the problems, but there is a lot of them.
 
 <img width="220px" src="https://gitee.com/Datalong/picture/raw/master/2022-3-1/1646127555917-gongzhon.jpg"  /> 
 
-To talk about😁 Acknowledge
+### To talk about😁 Acknowledge
 
 Bloggers have limited level and do not have good architecture ability. If you find logical errors in the code after fork, you can actively contact me or mention PR / issue. After adoption, you will appear in the list below.Thanks to the following small partners for their contributions to the project. The ranking is in chronological order.
 
 
 Friendship link (if you want to appear here, you can scan wechat QR code above to contact me):
  
- - [LeetCode_Offer](https://gitee.com/Datalong/leet-code--offer）(Graphic high frequency algorithm is being updated...)
+- [LeetCode_Offer](https://gitee.com/Datalong/leet-code--offer）(Graphic high frequency algorithm is being updated...)
 
 - [CodeGuide](https://github.com/Datalong/CodeGuide）Knowledge management and resource site, welcome to visit and exchange comments.
 
